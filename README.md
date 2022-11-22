@@ -90,12 +90,17 @@ Stackable images:
 ### Reference Documentation
 For further reference, find information at links:
 
-* Getting Docker, [here](https://docs.docker.com/get-docker).
+* Getting Docker (installation), [here](https://docs.docker.com/get-docker).
 * Docker Reference, [here](https://docs.docker.com/reference).
-* Docker Commands,  [here](https://docs.docker.com/engine/reference/commandline/docker),
-  [cheatsheet](https://devhints.io/docker).
-* Compose Reference, [here](https://docs.docker.com/compose/features-uses).
-* Dockerfile [cheatsheet](https://devhints.io/dockerfile).
-* docker-compose [cheatsheet](https://devhints.io/docker-compose).
+  * Docker Commands,  [here](https://docs.docker.com/engine/reference/commandline/docker),
+  [cheatsheet](https://devhints.io/docker)
+  * Dockerfile [cheatsheet](https://devhints.io/dockerfile).
+* Docker Hub, [link](https://hub.docker.com).
+* Orchestration (docker-compose)
+  * Compose Reference, [here](https://docs.docker.com/compose/features-uses),
+  * docker-compose [cheatsheet](https://devhints.io/docker-compose).
+* Docker Meetup Berlin, [past events](https://www.meetup.com/docker-berlin/events/past), [upcoming](https://www.meetup.com/docker-berlin/events/upcoming).
+* *DockerCon'22*, May 9-10, 2022, [link](https://docker.events.cube365.net/dockercon/2022), [YouTube](https://www.youtube.com/c/DockerIo/playlists).
+* *Salomon Hykes* at PyCon 2013, Santa Clara CA: *"The Future of Linux Containers"* ([video](https://www.youtube.com/watch?v=9xciauwbsuo), 5:21min).
 
 ---
