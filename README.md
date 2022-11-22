@@ -70,7 +70,20 @@ Basic docker [commands](https://docs.docker.com/engine/reference/commandline/doc
 ---
 
 Docker Overview:
-![Docker Overview](https://docs.docker.com/engine/images/architecture.svg "Some hover text")
+
+![not found: {Docker Overview}](https://docs.docker.com/engine/images/architecture.svg "Some hover text")
+
+&nbsp;
+
+Stackable images:
+
+![not found: {Stackable images}](https://www.partech.nl/-/media/habitat/images/blog/docker-pt-2/multilayer-image.ashx?mw=900&hash=4A92AB84F6CBE05A0183AE2CE138D354 "Some hover text")
+
+&nbsp;
+
+<!-- ![not found: {Stackable images}](https://docs.docker.com/storage/storagedriver/images/container-layers.jpg) -->
+
+![not found: {Stackable images}](https://docs.docker.com/storage/storagedriver/images/sharing-layers.jpg)
 
 ---
 
