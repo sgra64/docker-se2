@@ -1,32 +1,35 @@
 Software-Engineering 2 Docker introduction
 
 # Übung D1: Docker Introduction &nbsp; (<span style="color:red">16 Pts + 6 Extra Pts</span>)
-This assignment will setup Docker. If you already have Docker, simply run challenges and answer questions.
+This assignment will setup Docker and demonstrate basic use.
+If you already have Docker, you can use that configuration.
 
 Docker is a popular software packaging, distribution and execution infrastructure using containers:
-- Docker runs on Linux only (LXC). Mac, Windows have built adapter technologies.
-- Windows uses an internal Linux VM to run Docker engine ( *dockerd* ).
-- Client tools (CLI, GUI, e.g. [Docker Desktop](https://docs.docker.com/desktop/install/windows-install/) for Windows) are used to manage and execute containers.
+- Docker runs on Linux only (LXC). MacOS and Windows have developed adapter technologies.
+- Windows uses an internal Linux VM to run the Docker engine (or the Docker daemon
+    process: *dockerd* ).
+- Client tools (CLI, GUI, e.g. [Docker Desktop](https://docs.docker.com/desktop/install/windows-install/) for Windows) are used to create, manage and execute containers.
 
 Docker builds on Linux technologies:
-- stackable layers of filesystem images that each contain only a diff to an underlying image.
+- stackable layers of filesystem images that each contain only a difference to an underlying image.
 - tools to build, manage and distribute layered images ("ship containers").
-- Linux LXC technology to "execute containers" as groups of isolated processes on a Linux system (create/run a new container, start/stop/join container).
+- Linux LXC technology is used to "execute containers" as groups of isolated processes on a
+    Linux system (create/run a new container, start/stop/join container).
 
-Salomon Hykes, PyCon 2013, Santa Clara CA: *"The Future of Linux Containers"* ([watch](https://www.youtube.com/watch?v=9xciauwbsuo), 5:21min).
+Salomon Hykes at PyCon 2013, Santa Clara CA: *"The Future of Linux Containers"* ([video](https://www.youtube.com/watch?v=9xciauwbsuo), 5:21min).
 
 ### Challenges
-1. [Challenge 1:](#1-challenge-1) Docker Setup, CLI, (4 Pts)
-2. [Challenge 2:](#2-challenge-2) Run hello-world container, (3 Pts)
-3. [Challenge 3:](#3-challenge-3) Run minimal Alpine container, (3 Pts)
-4. [Challenge 4:](#4-challenge-4) Containerize Java application, (6 Pts)
-5. [Challenge 5:](#5-challenge-5) Configure Alpine container for ssh access, (6 Extra Pts)
+1. [Challenge 1:](#1-challenge-1) Docker Setup and CLI - (4 Pts)
+2. [Challenge 2:](#2-challenge-2) Run hello-world container - (3 Pts)
+3. [Challenge 3:](#3-challenge-3) Run minimal Alpine container - (3 Pts)
+4. [Challenge 4:](#4-challenge-4) Containerize Java application - (6 Pts)
+5. [Challenge 5:](#5-challenge-5) Configure Alpine container for ssh access - (6 Extra Pts)
 
 
 &nbsp;
 ### 1.) Challenge 1
-Open a terminal and type commands:
-```sh
+Install Docker. Open a terminal and type commands:
+```
 > docker --version
 Docker version 20.10.17, build 100c701
 > docker --help
@@ -38,14 +41,18 @@ ing.
 > docker ps                 ; dockerd is now running, no containers yet
 CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 ```
-If you can't run the `docker` command, the client-side **docker-CLI** (Command-Line-Interface) may not be installed or not on the PATH-variable. If `docker ps` says: "can't connect", the **Docker engine** (server-side: *dockerd* ) is not running and must be started.
+If you can't run the `docker` command, the client-side *docker-CLI* (Command-Line-Interface)
+may not be installed or is not on the PATH. If `docker ps` says: "can't connect",
+the *Docker engine* (server-side: *dockerd* ) is not running and must be started.
 
 (4 Pts)
 
 
 &nbsp;
 ### 2.) Challenge 2
-Run the *hello-world* container from Docker-Hub: [hello-world](https://hub.docker.com/_/hello-world):
+Run the *hello-world* container from Docker-Hub:
+[hello-world](https://hub.docker.com/_/hello-world):
+
 ```sh
 > docker run hello-world
 Unable to find image 'hello-world:latest' locally
@@ -57,26 +64,30 @@ Status: Downloaded newer image for hello-world:latest
 Hello from Docker!
 This message shows that your installation appears to be working correctly.
 ```
+
 Show the container image loaded on your system:
 ```sh
 > docker image ls
 REPOSITORY       TAG           IMAGE ID       CREATED         SIZE
 hello-world      latest        feb5d9fea6a5   12 months ago   13.3kB
 ```
+
 Show that the container is still present after the end of execution:
 ```sh
 > docker ps -a
 CONTAINER ID  IMAGE        COMMAND   CREATED    STATUS     PORTS   NAMES
 da16000022e0  hello-world  "/hello"  6 min ago  Exited(0)  magical_aryabhata
 ```
+
 Re-start the container with an attached (-a) *stdout* terminal.
-Refer to the container either by its ID ( *da16000022e0* ) or by its
-generated NAME ( *magical_aryabhata* ).
+Refer to the container either by its ID (here: *da16000022e0* ) or by its
+generated NAME (here: *magical_aryabhata* ).
 ```sh
 > docker start da16000022e0 -a          or: docker start magical_aryabhata -a
 Hello from Docker!
 This message shows that your installation appears to be working correctly.
 ```
+
 Re-run will create a new container and execut it. `docker ps -a ` will then
 show two containers created from the same image.
 ```sh
@@ -117,6 +128,7 @@ REPOSITORY       TAG           IMAGE ID       CREATED         SIZE
 hello-world      latest        feb5d9fea6a5   12 months ago   13.3kB
 alpine           latest        9c6f07244728   8 weeks ago     5.54MB
 ```
+
 Create and run an Alpine container executing an interactive shell `/bin/sh` attached to the terminal ( `-it` ). It launches the shell that runs commands inside the Alpine
 container.
 ```sh
@@ -152,6 +164,7 @@ Linux aab69035680f 5.10.124-linuxkit #1 SMP Thu Jun 30 08:19:10 UTC 2022 x86_64
 
 # exit
 ```
+
 Commands after the `#` prompt (*root* prompt) are executed by the `/bin/sh` shell
 inside the container. 
 
@@ -184,6 +197,7 @@ Write *"Hello, container"* into a file: `/tmp/hello.txt`. Don't leave the shell.
 Hello, container!
 #
 ```
+
 Start another shell in another terminal for the container. Since it refers to the same
 container, both shell processes share the same filesystem.
 The second shell can therefore see the file created by the first and append another
@@ -194,13 +208,16 @@ line, which again will be seen by the first shell.
 Hello, container!
 # echo "How are you?" >> /tmp/hello.txt
 ```
+
 First terminal:
+
 ```sh
 # cat /tmp/hello.txt
 Hello, container!
 How are you?
 #
 ```
+
 In order to perform other commands than the default command in a running container,
 use `docker exec`.
 
@@ -210,6 +227,7 @@ docker exec aab69035680f cat /tmp/hello.txt
 Hello, container!
 How are you?
 ```
+
 The execuition creates a new process that runs in the container seeing its filesystem
 and other resources.
 
@@ -217,10 +235,12 @@ Explain the next command:
 - What is the result?
 - How many processes are involved?
 - Draw a skech with the container, processes and their stdin/-out connections.
+
 ```sh
 echo "echo That\'s great to hear! >> /tmp/hello.txt" | \
         docker exec -i aab69035680f /bin/sh
 ```
+
 When all processes have exited, the container will return to the dormant state.
 It will preserve the created file.
 
@@ -230,20 +250,34 @@ It will preserve the created file.
 &nbsp;
 
 ### 4.) Challenge 4
-We use the simple Java application from
+We use the Java application from
 [Übung A1](https://lms.bht-berlin.de/mod/assign/view.php?id=966552) 
-(project: "setup.se2")to package this application as a container.
+(project: "setup.se2"):
 
-Create a project directory: `docker-se2` and copy the Java-project inside:
+```perl
+# run application
+java --class-path target application.App 48
+Hello, App!
+n=48 factorized is: [2, 2, 2, 2, 3]
 ```
---<docker-se2>:
+
+Goal is to package this application as a Docker container.
+
+Create a new project directory: `docker-se2` and copy the Java-project
+from Übung A1 inside. You find other files (`Dockerfile`, `Manifest.mf`, ... )
+on this page above.
+
+Create this structure for project: `docker-se2`:
+```
+--<docker-se2>:     <-- new container-build project
  |
  +--Dockerfile
+ +--Manifest.mf
  +-- ...
  |
- +--<setup-se2>:
+ +--<setup-se2>:    <-- copied from Übung A1
  |    |
- |    +--Manifest.mf
+ |    +--Manifest.mf    <- copy from ../
  |    +--src
  |    |   +--application
  |    |        +--App.java
@@ -262,71 +296,76 @@ Create a project directory: `docker-se2` and copy the Java-project inside:
  |    |   +--org.junit.jar, org.junit.jupiter.api,
  |    |      org.opentest4j, org.apiguardian.jar, ...
 ```
-Make sure to move/copy the `Manifest.mf` file into "setup.se2".
+Make sure to copy the `Manifest.mf` file into "setup.se2".
 
-Step 1: Compile java source code.
+The following steps will "build" the Java-project `setup-se2` and produce
+a packageable `app.jar` file with following steps:
+1. change directory into "setup.se2"
+1. compile: `App.java` -> target/application/App.class
+1. set variable `JUNIT_CLASSPATH` for compiling unit tests
+1. compile: `AppTest.java` -> target/application/AppTest.class
+1. perform JUnit tests
+1. package project into `app.jar`
+1. copy `app.jar` one level up to `docker-se2` directory for containerization.
 
-The following steps will "build" the project and create a packageable
-`app.jar` file:
-- change directory into "setup.se2"
-- compile: `App.java` -> target/application/App.class
-- set variable `JUNIT_CLASSPATH` for compiling unit tests
-- compile: `AppTest.java` -> target/application/AppTest.class
-- perform JUnit tests
-- package project into `app.jar`
-- copy `app.jar` one level up to `docker-se2` directory for containerization.
+It is important that code must be compiled for the Java-version
+that is available in the container as deployment environment,
+which will be Java-11.
 
-It is important to note that code must be compiled for the Java-version
-that is available in the deployment environment, which will be Java-11.
+The Java compiler must therefore be called with Java source and target
+version flags:
 
-The Java compiler will be called with the version flag
-`javac -source 11 -target 11`,
-which is unrelated to the name of the target folder for compiled code.
+    javac -source 11 -target 11 ...
 
 ```perl
 # change directory into "setup.se2"
-cd setup.se2
+> cd setup.se2
 
 # compile: `App.java` -> target/application/App.class
-javac -source 11 -target 11 src/application/App.java -d target
+> javac -source 11 -target 11 src/application/App.java -d target
 
-# set variable, Mac/Linux: use ':' as path separator, not ';'
-JUNIT_CLASSPATH="./lib/org.junit.jupiter.api.jar;\
+# set variable JUNIT_CLASSPATH
+# Mac/Linux: use ':' as path separator, not ';' (Windows)
+> JUNIT_CLASSPATH="./lib/org.junit.jupiter.api.jar;\
 ./lib/org.apiguardian.jar;\
 ./lib/org.junit.platform.commons.jar;\
 ./lib/org.junit.jar;\
 ./lib/org.opentest4j.jar"
 
 # show value of JUNIT_CLASSPATH variable
-echo $JUNIT_CLASSPATH
+> echo $JUNIT_CLASSPATH
 ./lib/org.junit.jupiter.api.jar;./lib/org.apiguardian.jar;./lib/org.junit.platform.commons.jar;./lib/org.junit.jar;./lib/org.opentest4j.jar
 
 # use JUNIT_CLASSPATH to compile JUnit test class
-javac -source 11 -target 11 test/application/AppTest.java -d target/ -cp "target;$JUNIT_CLASSPATH"
+> javac -source 11 -target 11 test/application/AppTest.java -d target/ -cp "target;$JUNIT_CLASSPATH"
 
 # show results
-find target
+> find target
 target/
 target/application
 target/application/App.class
 target/application/AppTest.class
 
 # run application
-java --class-path target application.App 48
+> java --class-path target application.App 48
 Hello, App!
 n=48 factorized is: [2, 2, 2, 2, 3]
 ```
 
-Run JUnit Tests.
+Run JUnit Tests. It is common practize to only package and deploy
+software that passes unit tests.
 
-```
+```perl
 # run JUnit tests
-java -jar lib/junit-platform-console-standalone-1.9.1.jar \
+> java -jar lib/junit-platform-console-standalone-1.9.1.jar \
     --class-path target --scan-class-path
 
 # alternatively, run JUnit tests using opt-file
-java @resources/junit-options.opt --scan-class-path
+> java @resources/junit-options.opt --scan-class-path
+```
 
+Output:
+```
 +-- JUnit Jupiter [OK]
 | '-- AppTest [OK]
 |   +-- test0003_FactorizeExceptionCases() [OK]
@@ -354,36 +393,36 @@ When all tests pass, the final step is to package the application into `app.jar`
 
 ```perl
 # create app.jar file and add App.class and AppTest.class
-jar cfm app.jar Manifest.mf -C target application/App.class
-jar uf app.jar -C target application/AppTest.class
+> jar cfm app.jar Manifest.mf -C target application/App.class
+> jar uf app.jar -C target application/AppTest.class
 
 # show app.jar
-ls -la
+> ls -la
 -rwxr-xr-x  1 svgr2 Kein 1556 Nov 21 21:44 app.jar*
 
 # look inside
-jar tvf app.jar
+> jar tvf app.jar
      0 Mon Nov 21 21:44:32 CET 2022 META-INF/
     91 Mon Nov 21 21:44:32 CET 2022 META-INF/MANIFEST.MF
   1781 Mon Nov 21 21:23:12 CET 2022 application/App.class
   2992 Mon Nov 21 21:26:38 CET 2022 application/AppTest.class
 
 # show MANIFEST.MF that defines the Main-Class as entry point
-cat manifest.mf
+> cat manifest.mf
 Manifest-Version: 1.0
-Created-By: 19 (Oracle Corporation)
+Created-By: 11 (Oracle Corporation)
 Main-Class: application.App
 
 # run jar file
-java -jar app.jar 100
+> java -jar app.jar 100
 Hello, App!
 n=100 factorized is: [2, 2, 5, 5]
 
 # copy app.jar one level up to docker project
-cp app.jar ..
+> cp app.jar ..
 
 # cd one level up to docker project
-cd ..
+> cd ..
 ```
 
 The container housing the Java application (`app.jar`) is built from a
@@ -429,7 +468,8 @@ start and stop containers.
 
 Build new container *image* named `"openjdk11/app.jar_img"` using `Dockerfile`.
 ```py
-docker build -t "openjdk11/app.jar_img" --no-cache .
+# build new image using Dockerfile at '.'
+> docker build -t "openjdk11/app.jar_img" --no-cache .
 ```
 
 Output:
@@ -458,8 +498,9 @@ earn how to fix them
 
 Show new container image:
 
-```py
-docker images
+```perl
+# show docker images
+> docker images
 ```
 
 Output:
@@ -475,14 +516,21 @@ openjdk11/app.jar_img    latest    9daa8d160b67   20 seconds ago   343MB
 
 Create container from new image, which also starts the container.
 
-```
-docker run -it --name=java_app_container -d openjdk11/app.jar_img
+```perl
+# create container from new image
+> docker run -it --name=java_app_container -d openjdk11/app.jar_img
 ```
 
 Show new container (not running):
 
+```perl
+# show new container
+> docker ps -a
 ```
-docker ps -a
+
+Output:
+
+```
 CONTAINER ID  IMAGE                  COMMAND                       STATUS      NAMES
 8efa2c6a84a6  openjdk11/app.jar_img  "java -jar /opt/app/app.jar"  Exited (0)  java_app_container
 ```
@@ -491,11 +539,14 @@ CONTAINER ID  IMAGE                  COMMAND                       STATUS      N
 
 **Steps 3 + 4:**
 
-Start container. Since the container only runs the Java application,
-it exits immediately after execution and does not need to be stopped. 
+Start the container. Since the container only runs the Java application,
+it exits immediately after execution and does not need to be stopped.
 
-```
-docker start -ai java_app_container
+The `-ai` option attaches the terminal for stdin/stdout to see output.
+
+```py
+# start container with -ai attached terminal for output
+> docker start -ai java_app_container
 ```
 
 Output:
@@ -509,13 +560,16 @@ Attach an interactive shell to the container to explore what is inside
 (we actually create another container instance with `docker run` that gets
 removed after exit with `--rm`):
 
-```
-docker run --rm -it openjdk11/app.jar_img /bin/sh
+```perl
+# attach shell to the container
+> docker run --rm -it openjdk11/app.jar_img /bin/sh
 ```
 
 Dialog inside the container created from the `openjdk11/app.jar_img` image,
-which contains Java-JDK 11 and also `app.jar` deployed into the container:
+which contains Java-JDK 11 and also `app.jar` deployed into the container.
 
+The following commands are executed inside the container (as user *root* with
+*root* privileges):
 ```
 # java --version
 openjdk 11.0.16.1 2022-08-12
@@ -552,12 +606,12 @@ when needed).
 
 Removing the container:
 ```py
-docker rm "java_app_container"
+> docker rm "java_app_container"
 ```
 
 Removing the image:
 ```py
-docker rmi "openjdk11/app.jar_img"
+> docker rmi "openjdk11/app.jar_img"
 ```
 
 To demonstrate the completion of the challenge, delete all images and containers,
