@@ -27,6 +27,18 @@ Docker builds on Linux technologies:
 - Linux LXC or similar technology is used to "run containers" as
   groups of isolated processes on a Linux system.
 
+
+Docker is used to:
+
+1. Aquire, deploy and use software (e.g. MySQL database) without
+    installation on the host system.
+
+1. Package own software and "ship-as-a-container" rather than in proprietary
+    formats that require installation in the target environment.
+
+Packaging and distributing software as a container becomes part of the
+**software build** process.
+
 ---
 
 Docker core concepts:
