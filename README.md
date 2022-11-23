@@ -5,16 +5,20 @@
 
 ---
 
-[Docker](https://docs.docker.com) is a popular software packaging, distribution and execution infrastructure using containers ([Overview](https://docs.docker.com/get-started/overview)):
+[Docker](https://docs.docker.com) is a popular software packaging, distribution and execution
+infrastructure using containers ([Overview](https://docs.docker.com/get-started/overview)):
 
 - Docker runs on Linux only (LXC). MacOS and Windows have developed adapter technologies.
 
 - Windows uses an internal Linux VM to run the Docker engine (or the Docker daemon
     process: *dockerd* ).
 
-- Client tools (CLI, GUI, e.g. [Docker Desktop](https://docs.docker.com/desktop/install/windows-install/)) are used to create, manage and execute containers.
+- Client tools (CLI, GUI, e.g.
+  [Docker Desktop](https://docs.docker.com/desktop/install/windows-install/))
+  are used to create, manage and execute containers.
 
-Introduction of Docker: *Salomon Hykes* at PyCon 2013, Santa Clara CA: *"The Future of Linux Containers"* ([video](https://www.youtube.com/watch?v=9xciauwbsuo), 5:21min).
+First introduction (2013): *Salomon Hykes* at PyCon 2013, Santa Clara CA: *"The Future of Linux Containers"*
+([video](https://www.youtube.com/watch?v=9xciauwbsuo), 5:21min).
 
 
 Docker builds on Linux technologies:
