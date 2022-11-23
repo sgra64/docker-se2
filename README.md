@@ -30,10 +30,10 @@ Docker builds on Linux technologies:
 
 Docker is used to:
 
-1. Aquire, deploy and use software (e.g. MySQL database) without
+- Aquire, deploy and use software (e.g. MySQL database) without
     installation on the host system.
 
-1. Package own software and "ship-as-a-container" rather than in proprietary
+- Package own software and "ship-as-a-container" rather than in proprietary
     formats that require installation in the target environment.
 
 Packaging and distributing software as a container becomes part of the
@@ -42,25 +42,28 @@ Packaging and distributing software as a container becomes part of the
 ---
 
 Docker core concepts:
-- **Image** - compound of stacked images (image layers) starting with a base image that yields
-  a final filesystem impression visible inside a container. Each image layer can be created
-  and distributed independently.
+- **Image** - compound of stacked images (image layers) starting with a base
+image that yields a final filesystem impression that is visible inside a
+container.
+  - Each image layer can be created and distributed independently.
+  - Each image is built by a
+      [Dockerfile](https://docs.docker.com/engine/reference/builder/).
 
-- **Registry** - local or global repository to share Docker images, e.g. [Docker Hub](https://hub.docker.com).
+- **Registry** - local or global repository to share images,
+e.g. [Docker Hub](https://hub.docker.com).
 
 - **Container** - Information (state) comprised of:
-  - id, name,
-  - Dockerfile with reference to base image,
-  - entry point, arguments, environment variables,
-  - ports, mounted volumes, etc.
+  - Id, name,
+  - Reference to an image (top of image stack),
+  - Entry point, arguments, environment variables,
+  - Ports, mounted volumes, etc.
 
-- **Running Container instance** - Process group executing on the state of a Container.
-  Process groups of one container are fully isolated from state of other containers
-  and the state of the host system.
+- **Running Container instance** - Process group executing on the state of a Container. Process groups of one container are fully isolated from state of
+other containers and the state of the host system.
 
-- **Orchestration** of Container instances (docker-compose) - from sets of containers,
-  e.g. a database container and an application container. Combine configuration and
-  life cycle control in a single `docker-compose.yaml` file.
+- **Orchestration** of Container instances (docker-compose) - from sets of
+containers, e.g. a database container and an application container. Combine
+configuration and life cycle control in a single `docker-compose.yaml` file.
 
 ---
 
