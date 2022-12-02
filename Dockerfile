@@ -1,4 +1,5 @@
 # base image, https://hub.docker.com/r/adoptopenjdk/openjdk11
+# Mac with M1-Chip use: FROM --platform=linux/amd64 adoptopenjdk/openjdk11:alpine
 FROM adoptopenjdk/openjdk11:alpine
 
 # create a new directory in the container: /opt/app

@@ -429,8 +429,14 @@ that contains:
 `Dockerfile` describes the additions to include in the new container:
 - the Java application (`app.jar`).
 
+Mac's with M1 Chip need to specify `--platform=linux/amd64` in `FROM`,
+see Dockerfile below or:
+*"Choosing the right Docker Image for your Apple M1 Pro"*,
+[link](https://collabnix.com/choosing-the-right-docker-image-for-your-apple-m1-pro).
+
 ```py
 # base image, https://hub.docker.com/r/adoptopenjdk/openjdk11
+# Mac with M1-Chip use: FROM --platform=linux/amd64 adoptopenjdk/openjdk11:alpine
 FROM adoptopenjdk/openjdk11:alpine
 
 # create a new directory in the container: /opt/app
