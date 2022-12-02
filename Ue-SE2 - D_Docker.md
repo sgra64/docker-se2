@@ -123,6 +123,12 @@ alpine           latest        9c6f07244728   8 weeks ago     5.54MB
 
 Create and run an Alpine container executing an interactive shell `/bin/sh` attached to the terminal ( `-it` ). It launches the shell that runs commands inside the Alpine
 container.
+
+**GitBash:**
+if error: *OCI runtime exec failed: exec failed: unable to start container
+process: exec: ... no such file or directory* occurs, use:
+`//bin//sh` instead of `/bin/sh`.
+
 ```sh
 > docker run -it alpine:latest /bin/sh
 # ls -la
