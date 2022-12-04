@@ -121,7 +121,7 @@ hello-world      latest        feb5d9fea6a5   12 months ago   13.3kB
 alpine           latest        9c6f07244728   8 weeks ago     5.54MB
 ```
 
-Create and run an Alpine container executing an interactive shell `/bin/sh` attached to the terminal ( `-it` ). It launches the shell that runs commands inside the Alpine
+Create and run an Alpine container executing an interactive shell `/bin/sh` (`\bin/sh` on Windows) attached to the terminal ( `-it` ). It launches the shell that runs commands inside the Alpine
 container.
 ```sh
 > docker run -it alpine:latest /bin/sh
