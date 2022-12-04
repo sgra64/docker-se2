@@ -11,8 +11,6 @@ If you already have Docker, you can use that configuration.
 4. [Challenge 4:](#4-challenge-4) Containerize Java application - (6 Pts)
 5. [Challenge 5:](#5-challenge-5) Configure Alpine container for ssh access - (6 Extra Pts)
 
-&nbsp;
-
 Refer to ["known issues"](#known-issues) for Apple *M1* processor and use with *GitBash*. 
 
 ---
@@ -707,7 +705,7 @@ Linux 54486c62d745 5.10.124-linuxkit #1 SMP Thu Jun 30 08:19:10 UTC 2022 x86_64 
 
 Known issues explain errors and fixes.
 
-1. Apple *M1*-Chip, error: *"The requested image's platform (linux/amd64) does not match the detected host platform"*.
+1. Apple *M1*-Chip error: *"The requested image's platform (linux/amd64) does not match the detected host platform"*.
 
     - Solution: build Docker containers with Intel/amd64 image specifying:
       `--platform=linux/amd64`:
@@ -721,7 +719,7 @@ Known issues explain errors and fixes.
         [link](https://collabnix.com/choosing-the-right-docker-image-for-your-apple-m1-pro).
 
 
-1. GitBash, error: *"docker: Error response from daemon: failed to create
+1. GitBash error: *"docker: Error response from daemon: failed to create
 shim task: OCI runtime create failed: runc create failed: unable to start
 container process: exec: stat C:/Program Files (x86)/Git/usr/bin/sh.exe:
 no such file or directory"*.
