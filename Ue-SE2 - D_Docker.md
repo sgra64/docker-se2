@@ -11,8 +11,9 @@ If you already have Docker, you can use that configuration.
 4. [Challenge 4:](#4-challenge-4) Containerize Java application - (6 Pts)
 5. [Challenge 5:](#5-challenge-5) Configure Alpine container for ssh access - (6 Extra Pts)
 
-
 &nbsp;
+
+Refer to ["known issues"](#known-issues) for Apple *M1* processor and use with *GitBash*. 
 
 ---
 ### 1.) Challenge 1
@@ -435,10 +436,8 @@ that contains:
 `Dockerfile` describes the additions to include in the new container:
 - the Java application (`app.jar`).
 
-Mac's with M1 Chip need to specify `--platform=linux/amd64` in `FROM`,
-see Dockerfile below or:
-*"Choosing the right Docker Image for your Apple M1 Pro"*,
-[link](https://collabnix.com/choosing-the-right-docker-image-for-your-apple-m1-pro).
+Mac's with M1 Chip need to specify `--platform=linux/amd64` in `FROM`, see
+[known issues](#known-issues).
 
 ```py
 # base image, https://hub.docker.com/r/adoptopenjdk/openjdk11
@@ -699,3 +698,65 @@ Linux 54486c62d745 5.10.124-linuxkit #1 SMP Thu Jun 30 08:19:10 UTC 2022 x86_64 
 ```
 
 (6 Extra Pts)
+
+
+&nbsp;
+
+---
+### Known Issues:
+
+Known issues explain errors and fixes.
+
+1. Apple *M1*-Chip, error: *"The requested image's platform (linux/amd64) does not match the detected host platform"*.
+
+    - Solution: build Docker containers with Intel/amd64 image specifying:
+      `--platform=linux/amd64`:
+
+      Example: `FROM --platform=linux/amd64 adoptopenjdk/openjdk11:alpine`
+
+    - References:
+      - *"The requested image's platform (linux/amd64) does not match the 
+        detected host platform"*, [stackoverflow](https://stackoverflow.com/questions/69054921/docker-on-mac-m1-gives-the-requested-images-platform-linux-amd64-does-not-m).
+      - *"Choosing the right Docker Image for your Apple M1 Pro"*,
+        [link](https://collabnix.com/choosing-the-right-docker-image-for-your-apple-m1-pro).
+
+
+1. GitBash, error: *"docker: Error response from daemon: failed to create
+shim task: OCI runtime create failed: runc create failed: unable to start
+container process: exec: stat C:/Program Files (x86)/Git/usr/bin/sh.exe:
+no such file or directory"*.
+
+    - Solution: disable GitBash/MinGW/MSYS path conversion by setting:
+      `export MSYS_NO_PATHCONV=1` in *.bashrc*.
+
+    - References:
+      - *"Stop MinGW and MSYS from mangling path names given at the
+        command line"*, [stackoverflow](https://stackoverflow.com/questions/7250130/how-to-stop-mingw-and-msys-from-mangling-path-names-given-at-the-command-line).
+
+    - Example: use `//` instead of `/` or set `$MSYS_NO_PATHCONV=1`:
+
+      `docker run --rm -it openjdk11/app.jar_img //bin/sh`
+
+1. GitBash error: *"the input device is not a TTY"*.
+
+    - Solution: prepend `winpty` before the docker command.
+      - Use alias for docker command in *.bashrc*:
+
+        `alias docker='winpty docker'`
+
+    - References:
+      - *"The input device is not a TTY"*,
+      [GitHub](https://github.com/vercel/hyper/issues/2888).
+      - *"TTY Error running interactive docker on Bash on Windows"*,
+      [GitHub](https://github.com/docker/for-win/issues/1588).
+
+    - Example:
+
+      `winpty docker run --rm -it openjdk11/app.jar_img /bin/sh`
+
+      or without `winpty` when using the alias in *.bashrc*.
+
+
+&nbsp;
+
+---
